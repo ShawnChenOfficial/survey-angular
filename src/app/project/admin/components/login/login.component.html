@@ -1,0 +1,18 @@
+<div class="w-100 vh-100-off-nav" fxLayout="row" fxLayoutAlign="center center">
+  <form>
+    <h3 class="mb-3">Login</h3>
+    <div class="form-group mb-3">
+      <label for="email">Email address</label>
+      <input type="email" required class="form-control" id="email" placeholder="Enter email" name="username"
+        [(ngModel)]="username" [disabled]="isLoading">
+    </div>
+    <div class="form-group mb-3">
+      <label for="password">Password</label>
+      <input type="password" required class="form-control" id="password" placeholder="Password" name="password"
+        [(ngModel)]="password" [disabled]="isLoading">
+    </div>
+    <div class="w-100 d-flex justify-content-end">
+      <button [buttonLoader]="isLoading" [disabled]="isLoading" type="submit" class="btn btn-dark d-flex" (click)="tryLogin()">Submit</button>
+    </div>
+  </form>
+</div>

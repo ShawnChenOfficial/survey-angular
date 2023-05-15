@@ -1,0 +1,35 @@
+<div class="management-panel-bg rounded p-3" fxFlex="0 0 400px">
+    <div class="mb-3" fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="text-start text-truncate" style="max-width: 120px;">{{survey.title}}</span>
+        <div class="d-flex">
+            <button type="button" [disabled]="survey.complete == 0 || isExporting" class="btn btn-sm btn-primary me-2 d-flex"
+                (click)="generateReport()" [buttonLoader]="isExporting">Report</button>
+            <button type="button" [disabled]="survey.complete > 0" class="btn btn-sm btn-primary"
+                (click)="create()">New</button>
+            <i *ngIf="survey.complete > 0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"
+                class="ps-1 bi bi-exclamation-circle-fill text-danger"></i>
+        </div>
+
+    </div>
+    
+    <app-loading [isLoading]="isLoading"></app-loading>
+
+    <table *ngIf="questions as questions" class="w-100 text-center">
+        <thead>
+            <tr class="table-heading">
+                <th *ngIf="survey.complete == 0"></th>
+                <th class="text-start">Question</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of questions" class="cursor-point table-content" (click)="details(question)">
+                <td class="cursor-point" *ngIf="survey.complete == 0" (click)="update($event,question)"><i
+                        class="bi bi-pencil-square"></i>
+                </td>
+                <td class="text-start text-truncate" style="max-width: 100px;">{{question.question}}</td>
+                <td><i *ngIf="survey.complete == 0" class="bi bi-trash3" (click)="remove($event, question)"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

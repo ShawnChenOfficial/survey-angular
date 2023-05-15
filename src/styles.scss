@@ -1,0 +1,140 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/* bootstrap 5 override */
+.table-content {
+    font-size: 0.6rem !important;
+}
+
+.table-heading>th {
+    font-size: 0.5rem !important;
+}
+
+.btn-group-sm>.btn,
+.btn-sm {
+    --bs-btn-padding-y: 0.125rem;
+    --bs-btn-padding-x: 0.3rem;
+    --bs-btn-font-size: 0.875rem !important;
+}
+
+.form-control,
+.form-select {
+    font-size: 0.7rem;
+}
+
+.form-label {
+    font-size: 0.7rem;
+}
+
+/* custom */
+
+// body {
+//     background-color: pink;
+// }
+
+body {
+    min-width: 360px;
+}
+
+.icon-lg {
+    font-size: 5rem;
+}
+
+.vh-100-off-nav {
+    height: calc(100vh - 46px) !important;
+}
+
+.padding-off-nav {
+    padding-top: 30px !important;
+}
+
+.cursor-point {
+    cursor: pointer;
+}
+
+
+.management-panel-bg {
+    margin-right: 0.8rem;
+    background-color: #fff2f4;
+    box-shadow: 2px 5px 9px rgb(168, 133, 139);
+}
+
+.option-img {
+    max-width: 100px;
+    border-radius: 6px;
+}
+
+.option-img-preview {
+    max-width: 75px;
+    border-radius: 6px;
+}
+
+.table-heading {
+    background-color: pink;
+}
+
+.table-heading>th {
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    font-size: 0.1rem;
+    font-weight: 500;
+    color: #64464b;
+}
+
+.table-heading>th:first-child {
+    padding-left: 0.5rem;
+}
+
+.table-heading>th:last-child {
+    padding-right: 0.5rem;
+}
+
+.table-content {
+    font-size: 0.2rem;
+}
+
+.table-content:hover {
+    color: #574b4d;
+    background-color: #f1cdd3;
+}
+
+.table-content>td {
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+}
+
+.table-content>td:first-child {
+    padding-left: 0.5rem;
+}
+
+.table-content>td:last-child {
+    padding-right: 0.5rem;
+}
+
+.modal-content {
+    font-size: 0.7rem;
+    max-height: calc(100vh * 0.7);
+    overflow-y: scroll;
+}
+
+.question-img-100px {
+    max-height: 100px;
+    border-radius: 6px;
+}
+
+.loading-icon {
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

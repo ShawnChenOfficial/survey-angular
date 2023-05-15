@@ -1,0 +1,40 @@
+<div class="w-100 vh-100-off-nav">
+    <div *ngIf="!showReview" class="h-100" fxLayout="row" fxLayoutAlign="center center">
+        <div class="h-100 pt-2" fxFlex="0 0 500px">
+            <div class="w-100 h-100">
+                <div class="w-100 mb-3" *ngIf="question as question">
+                    <p>{{currentQuestionNumber}}/{{totalQuestions}} <strong>Question:
+                            {{question.question}}</strong></p>
+                    <div *ngIf="question.questionImagePath as path"
+                        class="mb-3 pb-3 d-flex justify-content-center border-bottom">
+                        <img class="question-img-100px" src="{{ path | imageDisplay}}" alt="...">
+                    </div>
+                    <div class="w-100 text-center mb-3">
+                        <span *ngIf="isMultiSelect"><small>This is a <strong>multi-select</strong>
+                                question.</small></span>
+                        <span *ngIf="!isMultiSelect"><small>Please select <strong>one</strong> answer
+                                below</small></span>
+                    </div>
+                    <div class="mb-3 " *ngIf="isMultiSelect">
+                        <app-question-multi-select [question]="question"></app-question-multi-select>
+                    </div>
+                    <div *ngIf="isSingleSelect">
+                        <app-question-single-select [question]="question"></app-question-single-select>
+                    </div>
+                </div>
+                <div class="w-100 pb-3" fxLayout="row" fxLayoutAlign="space-between">
+                    <button [disabled]="!hasPrevious" type="submit" class="btn btn-dark"
+                        (click)="previous()">Previous</button>
+                    <div>
+                        <button *ngIf="hasNext" type="submit" class="btn btn-dark me-3" (click)="pause()">Pause</button>
+                        <button *ngIf="hasNext" [disabled]="!currentQuestionHasAnswer" type="submit"
+                            class="btn btn-dark" (click)="next()">Next</button>
+                    </div>
+                    <button *ngIf="!hasNext" [disabled]="!currentQuestionHasAnswer" type="submit" (click)="review()"
+                        class="btn btn-dark">Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-survey-review *ngIf="showReview"></app-survey-review>
+</div>

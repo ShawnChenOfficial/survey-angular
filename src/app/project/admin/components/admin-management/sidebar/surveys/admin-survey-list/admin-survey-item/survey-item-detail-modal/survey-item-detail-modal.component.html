@@ -1,0 +1,19 @@
+<app-modal-header [title]="title" (close)="close()"></app-modal-header>
+<div class="p-3 modal-content">
+    <span>Question: {{question.question}}</span>
+    <div *ngIf="question.questionImagePath as path" class="my-3 d-flex justify-content-center">
+        <img class="question-img-100px" src="{{ path | imageDisplay }}" alt="...">
+    </div>
+    <div class="row px-2">
+        <div class="my-0 mt-2 col-6" *ngFor="let selection of question.selectOptions" fxLayout="row"
+            fxLayoutAlign="start center">
+            <span class="pe-2">{{selection.selection}}.</span>
+            <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+                <img *ngIf="selection.imagePath as path" class="option-img" src="{{ path | imageDisplay }}" alt="..." />
+                <span class="text-break" [ngClass]="{'pt-2' : selection.imagePath}">{{selection.content}}</span>
+            </div>
+            <span *ngIf="percentages as percentages" class="ps-2">{{getPercentage(selection.id) | number}}%</span>
+        </div>
+    </div>
+</div>
+<app-modal-footer (close)="close()"></app-modal-footer>

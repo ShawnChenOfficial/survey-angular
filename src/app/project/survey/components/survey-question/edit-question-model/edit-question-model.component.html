@@ -1,0 +1,5 @@
+<app-modal-header [title]="title" (close)="close()"></app-modal-header>
+<div class="p-3">
+    <span>Are you sure to update result?</span>
+</div>
+<app-modal-footer (save)="save()" (close)="close()" [isLoading]="isLoading"></app-modal-footer>

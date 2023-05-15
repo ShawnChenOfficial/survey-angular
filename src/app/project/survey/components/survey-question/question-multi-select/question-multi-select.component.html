@@ -1,0 +1,14 @@
+<div class="ms-0 row">
+    <div *ngFor="let option of question.selectOptions" class="col-6 form-check mb-2 d-flex align-items-center">
+        <input class="form-check-input cursor-point" type="checkbox" [(ngModel)]="option.selected" [disabled]="disabled"
+        (click)="whenUpdateValue(option, $event)"  name="{{ question.id + option.selection }}" id="{{ question.id + option.selection }}">
+        <label class="ps-2 mt-1 form-check-label cursor-point w-100" for="{{ question.id + option.selection }}"
+            fxLayout="row" fxLayoutAlign="center center">
+            <span class="pe-2 pt-1">{{option.selection}}.</span>
+            <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+                <img *ngIf="option.imagePath as path" class="option-img" src="{{ path | imageDisplay}}" alt="..." />
+                <span class="text-break" [ngClass]="{'pt-2' : option.imagePath}">{{option.content}}</span>
+            </div>
+        </label>
+    </div>
+</div>

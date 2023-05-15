@@ -1,0 +1,12 @@
+<div class="border-top p-3" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+        <button *ngIf="toClose" class="btn btn-sm btn-secondary" (click)="close()"
+            [buttonLoader]="isCloseLoading && isLoading" [disabled]="isLoading">Close</button>
+        <button *ngIf="toRemove" class="btn btn-sm btn-danger" (click)="remove()"
+            [buttonLoader]="isRemoveLoading && isLoading" [disabled]="isLoading">Remove</button>
+    </div>
+    <div>
+        <button *ngIf="toSave" class="btn btn-sm btn-primary d-flex" (click)="save()"
+            [buttonLoader]="isSaveLoading && isLoading" [disabled]="isLoading">Submit</button>
+    </div>
+</div>

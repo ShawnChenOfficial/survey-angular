@@ -1,0 +1,36 @@
+<div class="vh-100-off-nav management-panel-bg rounded p-3" fxFlex="0 0 800px">
+    <div class="mb-3" fxLayout="row" fxLayoutAlign="space-between">
+        <span>Surveys</span>
+        <button class="btn btn-sm btn-primary" (click)="create()">Create</button>
+    </div>
+
+    <app-loading [isLoading]="isLoading"></app-loading>
+
+    <table *ngIf="!isLoading && surveys as surveys" class="w-100 text-center">
+        <thead>
+            <tr class="table-heading">
+                <th></th>
+                <th class="text-start">Survey Name</th>
+                <th>Questions</th>
+                <th>Multi Selections</th>
+                <th>Single Selections</th>
+                <th>Complete</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let survey of surveys" class="cursor-point table-content" (click)="select(survey)">
+                <td class="ps-1 pe-1 cursor-point"><i *ngIf="survey.complete == 0" class="bi bi-pencil-square"
+                        (click)="update($event, survey)"></i></td>
+                <td class="text-start text-truncate" style="max-width: 75px;">{{survey.title}}</td>
+                <td>{{survey.total}}</td>
+                <td>{{survey.multiSelect}}</td>
+                <td>{{survey.singleSelect}}</td>
+                <td>{{survey.complete}}</td>
+                <td><i *ngIf="survey.complete == 0" class="bi bi-trash3" (click)="remove($event, survey)"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<app-admin-survey-item *ngIf="selectedSurvey as selected" [survey]="selected" (refreshSurveys)="load()">
+</app-admin-survey-item>

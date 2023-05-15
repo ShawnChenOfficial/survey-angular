@@ -1,0 +1,29 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div class="w-100" fxFlex="500px">
+        <div class="w-100">
+            <ng-container *ngFor="let question of questions; let i = index">
+                <div class="w-100 my-3" *ngIf="question as question">
+                    <p><strong>Question {{i + 1}}: {{question.question}}</strong></p>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <img *ngIf="question.questionImagePath as path" class="question-img-100px"
+                            src="{{ path | imageDisplay}}" alt="...">
+                    </div>
+                    <div
+                        *ngIf="question.answerType == AnswerType.ImageMultiSelection || question.answerType == AnswerType.StringMultiSelection">
+                        <app-question-multi-select [confirmOnEdit]="true" [question]="question">
+                        </app-question-multi-select>
+                    </div>
+                    <div
+                        *ngIf="question.answerType == AnswerType.ImageSelection || question.answerType == AnswerType.StringSelection">
+                        <app-question-single-select [confirmOnEdit]="true" [question]="question">
+                        </app-question-single-select>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="w-100 pb-3 d-flex" fxLayout="row" fxLayoutAlign="center center">
+                <button [buttonLoader]="isLoading" type="submit" class="btn btn-dark d-flex" [disabled]="isLoading"
+                    (click)="complete()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

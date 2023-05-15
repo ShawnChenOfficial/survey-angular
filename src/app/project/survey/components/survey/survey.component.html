@@ -1,0 +1,35 @@
+<div *ngIf="!started && !resumed" class="w-100 h-100" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="0 0 300px" fxLayout="column" fxLayoutAlign="center center">
+        <div class="mb-5" fxLayout="row" fxLayoutAlign="space-between">
+            <div class="form-check me-2">
+                <input class="form-check-input cursor-point" type="radio" name="new-survey" id="new-survey"
+                    (change)="isResume = false" [checked]="!isResume">
+                <label class="form-check-label cursor-point" for="new-survey">
+                    Start new
+                </label>
+            </div>
+            <div class="form-check ms-2">
+                <input class="form-check-input cursor-point" type="radio" name="resume-survey" id="resume-survey"
+                    (change)="isResume = true" [checked]="isResume">
+                <label class="form-check-label cursor-point" for="resume-survey">
+                    Resume
+                </label>
+            </div>
+        </div>
+        <ng-container *ngIf="!isResume">
+            <select class="form-select mb-3" [(ngModel)]="selectedSurvey">
+                <option selected [ngValue]='undefined'>Select Survey</option>
+                <option *ngFor="let survey of surveys" [ngValue]="survey">{{survey.title}}</option>
+            </select>
+            <button [disabled]="!hasSelectedSurvey" type="submit" class="btn btn-dark" (click)="start()">Start</button>
+        </ng-container>
+        <ng-container *ngIf="isResume">
+            <input inputNumberOnlyInput class="form-control mb-3" placeholder="Your survey resume number"
+                [(ngModel)]="resumeNumber" />
+            <button [disabled]="!resumeNumber" type="submit" class="btn btn-dark" (click)="resume()">Resume</button>
+        </ng-container>
+    </div>
+</div>
+<div *ngIf="started || resumed" class="w-100 h-100">
+    <app-survey-question [isResumed]="resumed"></app-survey-question>
+</div>

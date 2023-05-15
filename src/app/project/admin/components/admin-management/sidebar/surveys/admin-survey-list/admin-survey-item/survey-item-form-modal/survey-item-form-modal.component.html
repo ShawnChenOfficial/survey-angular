@@ -1,0 +1,63 @@
+<app-modal-header [title]="title" (close)="close()"></app-modal-header>
+<div class="p-3 modal-content" #scroll [scrollTop]="scroll.scrollHeight">
+    <div class="mb-3">
+        <label for="title" class="form-label">Question</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="form.question">
+    </div>
+    <div class="mb-3">
+        <label for="questionImg" class="form-label">Question Image</label>
+        <div *ngIf="form.questionImagePath as path" class="mb-3 d-flex justify-content-center">
+            <img class="question-img-100px" src="{{ path | imageDisplay }}" alt="...">
+        </div>
+        <input #questionImageUpload type="file" id="questionImg" (change)="setQuestionImage($event)" hidden>
+        <div class="container form-control border-0 mx-0 mb-2 p-0 ">
+            <div class="row justify-content-around">
+                <button class="col-10 btn btn-sm btn-primary" (click)="questionImageUpload.click()">Upload</button>
+                <button class="col-1 btn btn-sm btn-secondary" [disabled]="form.questionImagePath == null"
+                    (click)="removeQuestionImage($event)"><i class="bi bi-trash3"></i></button>
+            </div>
+        </div>
+        <span class="form-text">
+            Upload an image to help explain your question
+        </span>
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Option Type</label>
+        <div class="row m-0">
+            <div class="form-check col-6" *ngFor="let type of answerTypes">
+                <input class="form-check-input" type="radio" name="optionType" [id]="type"
+                    (change)="selectOptionType(type)" [checked]="form.answerType == type">
+                <label class="form-check-label" [for]="type">
+                    {{type | answerType}}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="form.answerType">
+        <div fxLayout="row" fxLayoutAlign="space-between" class="mb-2">
+            <span>Selections Preview:</span>
+            <span class="badge bg-primary fw-normal cursor-point" (click)="createItem()">New Option +</span>
+        </div>
+        <span *ngIf="form.selectOptions?.length == 0" class="badge bg-light text-secondary py-3">No selections</span>
+        <div class="row mb-2 px-2">
+            <div class="m-0 py-4 col-6 cursor-point selection-item position-relative"
+                *ngFor="let selection of form.selectOptions" fxLayout="row" fxLayoutAlign="start center"
+                [ngClass]="{'selected': selectedSelection != null && selectedSelection.temId == selection.temId}"
+                (click)="updateOption(selection)">
+                <span class="pe-2">{{selection.selection}}.</span>
+                <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+                    <img *ngIf="selection.imagePath as path" class="option-img" src="{{ path | imageDisplay }}"
+                        alt="..." />
+                    <span class="text-break" [ngClass]="{'pt-2' : selection.imagePath}">{{selection.content}}</span>
+                </div>
+                <div class="position-absolute end-0 pe-4" (click)="removeOption($event, selection)">
+                    <span class="cursor-point"><i class="bi bi-trash3"></i></span>
+                </div>
+            </div>
+        </div>
+        <app-survey-item-modal *ngIf="selectedSelection" [selection]="selectedSelection" [isImg]="IsImage"
+            (saveEvent)="itemCreatedOrUpdated($event)" (closeEvent)="clearSelectedOption()"></app-survey-item-modal>
+    </ng-container>
+</div>
+<app-modal-footer [isLoading]="isLoading" (save)="save()" (close)="close()"></app-modal-footer>

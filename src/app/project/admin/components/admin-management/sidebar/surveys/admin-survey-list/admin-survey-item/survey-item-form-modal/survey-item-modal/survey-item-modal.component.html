@@ -1,0 +1,39 @@
+<div class="p-3 m-2 border  position-relative">
+    <div class="mb-3" [formGroup]="formGroup">
+        <label for="selection" class="form-label">Selection Title</label>
+        <input type="text" class="form-control w-25" id="selection" aria-describedby="passwordHelpInline"
+            [(ngModel)]="selection.selection" formControlName="selection">
+        <span id="passwordHelpInline" class="form-text">
+            e.g. A, B, C, D or 1, 2, 3, 4
+        </span>
+        <div *ngIf="selectionValidator!.invalid" class="text-danger">
+            <div *ngIf="selectionValidator!.errors?.['required']">
+                Selection title is required.
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <input type="text" class="form-control" id="content" [(ngModel)]="selection.content">
+    </div>
+
+    <div *ngIf="isImg" class="container form-control border-0 mx-0 mb-3 p-0">
+        <label for="content" class="form-label">Image
+            <span *ngIf="!selection.imagePath && selectedImg">: {{selectedImg.name}}</span>
+            <span *ngIf="selection.imagePath as path">: {{path}}</span>
+        </label>
+        <div class="row justify-content-around">
+            <input #imageUpload type="file" id="content" (change)="setImg($event)" hidden>
+            <button class="col-10 btn btn-sm btn-primary" (click)="imageUpload.click()">Upload Image</button>
+            <button class="col-1 btn btn-sm btn-secondary"
+                [disabled]="selection.imagePath == null && selectedImg == null" (click)="removeImage()"><i
+                    class="bi bi-trash3"></i></button>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <button class="btn btn-sm btn-secondary" (click)="close()">Close</button>
+        <button class="btn btn-sm btn-primary" [disabled]="!formGroup.valid" (click)="save()">Submit</button>
+    </div>
+</div>
